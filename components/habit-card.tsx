@@ -114,7 +114,7 @@ const HabitCard = ({
                 <DialogHeader>
                     <DialogTitle>Edit your activity</DialogTitle>
                     <DialogDescription>
-                        Write information here. Use negative integer for bad activities. Click save when you're done.
+                        Write information here. Use negative integer for bad activities. Click save when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                     <div className="grid gap-4 py-4">

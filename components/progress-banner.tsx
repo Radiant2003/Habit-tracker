@@ -20,7 +20,7 @@ const ProgressBanner = () => {
         invoke("create_or_get_user").then((users)=> {
             userPoints.setPoints((users as User[])[0].points);
         });
-    }, []);
+    });
 
     useEffect(() => {
         for (const key of Object.keys(LEAGUES)) {
@@ -45,7 +45,7 @@ const ProgressBanner = () => {
         return () => {
             clearInterval(updateInterval);
         }
-    }, [userPoints.points, league]);
+    }, [userPoints, league]);
 
     return ( 
         <div className="w-[90%] my-5 border-4 border-neutral-300 rounded-lg px-10 pt-10">

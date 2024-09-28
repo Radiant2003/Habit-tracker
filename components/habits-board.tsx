@@ -72,7 +72,7 @@ const HabitsBoard = () => {
                     <DialogHeader>
                         <DialogTitle>Add your activity</DialogTitle>
                         <DialogDescription>
-                            Write information here. Use negative integer for bad activities. Click add when you're done.
+                            Write information here. Use negative integer for bad activities. Click add when you&apos;re done.
                         </DialogDescription>
                     </DialogHeader>
                         <div className="grid gap-4 py-4">
