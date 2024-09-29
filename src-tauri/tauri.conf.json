@@ -53,7 +53,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}"
+        "https://github.com/Radiant2003/Habit-tracker/releases/download/app-v{{current_version}}/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEIxNzFBMEU3NkM2OEY1MkUKUldRdTlXaHM1NkJ4c1U1UHdhYzBhcUNROG9qTklKVmFDZnR0c0hraTlBQTVpOUV3YUgzU0VWUXQK"
     },
