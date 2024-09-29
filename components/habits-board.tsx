@@ -54,14 +54,14 @@ const HabitsBoard = () => {
         getHabits();
     }, []);
     return ( 
-        <div className="flex flex-wrap justify-evenly w-full h-full gap-x-2 gap-y-2">
+        <div className="flex flex-wrap justify-evenly w-full h-full gap-x-2 gap-y-2 mb-3">
             {habits.map(habit => (
                 <HabitCard key={habit.id} originalHabit={habit} onDelete={onDelete}/>
             ))}
             <Dialog>
                 <DialogTrigger asChild>
                     <button 
-                        className="w-[30%] h-40 border-2 rounded-lg hover:bg-slate-700 transition border-neutral-300"
+                        className="w-[30%] h-[27vh] border-2 rounded-lg hover:bg-slate-700 transition border-neutral-300 max-w-[350px] min-h-[150px]"
             >
                         <p className="flex items-center justify-center">
                             <Plus />Add activity
@@ -71,7 +71,7 @@ const HabitsBoard = () => {
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Add your activity</DialogTitle>
-                        <DialogDescription>
+                        <DialogDescription className="text-foreground">
                             Write information here. Use negative integer for bad activities. Click add when you&apos;re done.
                         </DialogDescription>
                     </DialogHeader>

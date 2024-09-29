@@ -56,13 +56,14 @@ const HabitCard = ({
     };
 
     return (
-        <div className={cn("flex flex-col justify-between items-center w-[30%] h-40 rounded-lg text-black",
+        <div className={cn("flex flex-col justify-between items-center w-[30%] h-[27vh] rounded-lg text-black max-w-[350px] min-h-[150px]",
             editedHabit.points > 0 ? "bg-[#2cb51d]" : "bg-[#e61515]"
         )}>
             <h2 className="text-xl">{editedHabit.habit_name}</h2>
             <h2>{editedHabit.points < 0 ? `penalty: ${editedHabit.points}` : `reward: +${editedHabit.points}`}</h2>
             <Button 
-                className={cn(editedHabit.points > 0 ? "bg-emerald-800 hover:bg-emerald-900" : "bg-rose-800 hover:bg-rose-900")}
+                className={cn("w-[25%] h-[25%] rounded-xl", 
+                    editedHabit.points > 0 ? "bg-emerald-800 hover:bg-emerald-900" : "bg-rose-800 hover:bg-rose-900")}
                 onClick={() => onDone(editedHabit.points)}
             >
                 Done
@@ -80,8 +81,8 @@ const HabitCard = ({
             </AlertDialogTrigger>
             <AlertDialogContent className="sm:max-w-[425px]">
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete your activity</AlertDialogTitle>
-                    <AlertDialogDescription>
+                    <AlertDialogTitle className="text-xl">Delete your activity</AlertDialogTitle>
+                    <AlertDialogDescription className="text-foreground">
                         This action cannot be undone. This will permanently delete your activity.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
@@ -112,8 +113,8 @@ const HabitCard = ({
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Edit your activity</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-xl">Edit your activity</DialogTitle>
+                    <DialogDescription className="text-foreground">
                         Write information here. Use negative integer for bad activities. Click save when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>

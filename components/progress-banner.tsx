@@ -20,7 +20,7 @@ const ProgressBanner = () => {
         invoke("create_or_get_user").then((users)=> {
             userPoints.setPoints((users as User[])[0].points);
         });
-    });
+    }, []);
 
     useEffect(() => {
         for (const key of Object.keys(LEAGUES)) {
@@ -48,7 +48,7 @@ const ProgressBanner = () => {
     }, [userPoints, league]);
 
     return ( 
-        <div className="w-[90%] my-5 border-4 border-neutral-300 rounded-lg px-10 pt-10">
+        <div className="w-[90%] my-5 border-4 border-neutral-300 rounded-lg px-10 pt-10 max-w-[980px]">
             <h1 className="text-xl font-semibold">{league.title.toUpperCase()}</h1>
             <div className="flex items-center justify-between">
                 <div className="w-[80%]">
