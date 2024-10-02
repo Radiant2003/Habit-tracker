@@ -1,10 +1,10 @@
 [package]
 name = "app"
-version = "0.2.0"
+version = "0.3.0"
 description = "Offline habit tracker created with Tauri and Next.js"
 authors = ["you"]
 license = ""
-repository = ""
+repository = "https://github.com/Radiant2003/Habit-tracker"
 default-run = "app"
 edition = "2021"
 rust-version = "1.60"

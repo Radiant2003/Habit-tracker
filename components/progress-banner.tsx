@@ -49,7 +49,7 @@ const ProgressBanner = () => {
 
     return ( 
         <div className="w-[90%] my-5 border-4 border-neutral-300 rounded-lg px-10 pt-10 max-w-[980px]">
-            <h1 className="text-xl font-semibold">{league.title.toUpperCase()}</h1>
+            <h1 className="text-xl font-semibold">{`${league.title.toUpperCase()} (daily cost: ${league.league_cost} points)`}</h1>
             <div className="flex items-center justify-between">
                 <div className="w-[80%]">
                     <Progress value={(userPoints.points - league.lower_bound) / 4.99}/>
