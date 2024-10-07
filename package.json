@@ -1,6 +1,6 @@
 {
   "name": "habit-tracker",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "private": true,
   "repository": "https://github.com/Radiant2003/Habit-tracker",
   "scripts": {
@@ -17,20 +17,22 @@
     "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
-    "@tauri-apps/api": "^1.6.0",
+    "@tauri-apps/api": "^2.0.2",
+    "@tauri-apps/plugin-updater": "^2.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.441.0",
     "next": "^14.2.13",
     "react": "^18",
     "react-dom": "^18",
+    "recharts": "^2.12.7",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.6.1",
+    "@tauri-apps/cli": "^2.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

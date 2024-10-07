@@ -15,3 +15,9 @@ export type League = {
     lower_bound: number;
     league_cost: number;
 };
+
+export type Record = {
+    id: number;
+    points: number;
+    created_at: string;
+};

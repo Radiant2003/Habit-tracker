@@ -1,9 +1,9 @@
 "use client";
 
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Plus } from "lucide-react";
+import { LucideBookOpenText, Plus } from "lucide-react";
 
 import { Habit } from "@/types";
 import HabitCard from "./habit-card";
@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
+import HistoryChart from "./history-chart";
 
 const HabitsBoard = () => {
     const [habits, setHabits] = useState<Habit[]>([]);
@@ -100,7 +101,8 @@ const HabitsBoard = () => {
     }, [filterCalback, sortCallback]);
     return (
         <>
-            <div className="w-full flex gap-x-2 mb-2 ml-8">
+            <div className="w-full flex gap-x-2 mb-2 justify-center">
+                <div className="flex w-[90%] max-w-[980px] justify-start gap-x-2">
                 <Select onValueChange={(value) => onSelectSort(value)}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Sort by" />
@@ -126,8 +128,19 @@ const HabitsBoard = () => {
                         </SelectGroup>
                     </SelectContent>
                 </Select>
+                <Dialog>
+                    <DialogTrigger>
+                        <Button className="bg-foreground border">
+                            <LucideBookOpenText className="mr-1"/>History
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-[70%] min-w-[425px]">
+                        <HistoryChart />
+                    </DialogContent>
+                </Dialog>
+                </div>
             </div>
-            <div className="flex flex-wrap justify-evenly w-full h-full gap-x-2 gap-y-2 mb-3">
+            <div className="flex flex-wrap justify-evenly w-full h-full gap-x-2 gap-y-2 mb-3 max-w-[1200px]">
                 {habits.map(habit => (
                     <HabitCard key={habit.id} originalHabit={habit} onDelete={onDelete}/>
                 ))}

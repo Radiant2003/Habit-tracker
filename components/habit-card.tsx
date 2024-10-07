@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { cn } from "@/lib/utils";
 import { Edit, Trash } from "lucide-react";
 
@@ -90,8 +90,9 @@ const HabitCard = ({
                         <AlertDialogCancel>
                             Cancel
                         </AlertDialogCancel>
-                        <AlertDialogAction>
-                            <Button 
+                        <AlertDialogAction className="bg-rose-900 hover:bg-rose-950">
+                            <Button
+                                className="bg-rose-900 hover:bg-rose-950"
                                 type="submit"
                                 onClick={() => onDelete(editedHabit.id)}
                             >
