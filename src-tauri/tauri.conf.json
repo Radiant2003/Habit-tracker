@@ -1,5 +1,4 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
@@ -47,7 +46,7 @@
   "identifier": "radiant-habit-tracker",
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEIxNzFBMEU3NkM2OEY1MkUKUldRdTlXaHM1NkJ4c1U1UHdhYzBhcUNROG9qTklKVmFDZnR0c0hraTlBQTVpOUV3YUgzU0VWUXQK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc0NzkxRDkxRTlGQUIxNDcKUldSSHNmcnBrUjE1ZE15VTJzN0lEejF4S1VMblNzUXh3YnFyM2xMMVkvbksyRXo4UEROTjUrVVkK",
       "windows": {
         "installMode": "basicUi",
         "installerArgs": []

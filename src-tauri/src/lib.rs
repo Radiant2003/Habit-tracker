@@ -18,6 +18,7 @@ use db::*;
 pub async fn run() -> Result<(), ()> {
     let app: App = tauri::Builder::default()
         .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_cli::init())
         .invoke_handler(tauri::generate_handler![
             create_or_get_user,
             create_habit,
