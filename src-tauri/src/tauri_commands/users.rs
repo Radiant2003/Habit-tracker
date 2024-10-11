@@ -133,8 +133,8 @@ pub async fn check_user_update(
         .unwrap()
         .as_millis() as i64;
 
-    if (users[0].updated_at + 8640000) < now {
-        let days_inactive: i16 = ((now - users[0].updated_at) / 8640000) as i16;
+    if (users[0].updated_at + 86_400_000) < now {
+        let days_inactive: i16 = ((now - users[0].updated_at) / 86_400_000) as i16;
 
         let new_points: i16 = max_by(
             users[0].points - days_inactive * league_entry_points,

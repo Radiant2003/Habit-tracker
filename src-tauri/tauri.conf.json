@@ -42,7 +42,7 @@
   },
   "productName": "Habit tracker",
   "mainBinaryName": "Habit tracker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "identifier": "radiant-habit-tracker",
   "plugins": {
     "updater": {
