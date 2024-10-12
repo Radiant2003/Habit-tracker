@@ -12,11 +12,14 @@ use crate::AppState;
 
 use crate::Record;
 
+use super::League;
+
 #[derive(Debug, Serialize, Deserialize, FromRow)]
 pub struct User {
     pub id: u16,
     pub points: i16,
     pub updated_at: i64,
+    pub league_id: i16,
 }
 
 #[tauri::command]
@@ -32,7 +35,7 @@ pub async fn create_or_get_user(state: tauri::State<'_, AppState>) -> Result<Vec
         .unwrap();
 
     if existing_users.len() == 0 {
-        sqlx::query("INSERT INTO users (points, updated_at) VALUES (?1, ?2)")
+        sqlx::query("INSERT INTO users (points, updated_at, league_id) VALUES (?1, ?2, ?3)")
             .bind(0)
             .bind(
                 SystemTime::now()
@@ -40,6 +43,7 @@ pub async fn create_or_get_user(state: tauri::State<'_, AppState>) -> Result<Vec
                     .unwrap()
                     .as_millis() as i64,
             )
+            .bind(1)
             .execute(db)
             .await
             .map_err(|e| format!("could not create user: {}", e))
@@ -115,8 +119,7 @@ pub async fn update_user_points(
 
 #[tauri::command]
 pub async fn check_user_update(
-    state: tauri::State<'_, AppState>,
-    league_entry_points: i16,
+    state: tauri::State<'_, AppState>
 ) -> Result<i16, ()> {
     let db: &Pool<Sqlite> = &state.db;
 
@@ -134,13 +137,40 @@ pub async fn check_user_update(
         .as_millis() as i64;
 
     if (users[0].updated_at + 86_400_000) < now {
+        let mut leagues: Vec<League> = sqlx::query_as::<_, League>("SELECT * FROM leagues WHERE id = ?1")
+            .bind(users[0].league_id)
+            .fetch(db)
+            .try_collect()
+            .await
+            .map_err(|e| format!("could not get league: {}", e))
+            .unwrap();
+
         let days_inactive: i16 = ((now - users[0].updated_at) / 86_400_000) as i16;
 
-        let new_points: i16 = max_by(
-            users[0].points - days_inactive * league_entry_points,
-            0,
-            |x: &i16, y: &i16| x.cmp(&y),
-        );
+        let mut new_points: i16 = users[0].points;
+
+        for _ in 0..days_inactive {
+            if leagues[0].league_cost == 0 {
+                break
+            }
+            new_points = new_points - leagues[0].league_cost;
+
+            if new_points < leagues[0].lower_bound {
+                let _ = sqlx::query("UPDATE users SET league_id = ?1 WHERE id = 1")
+                    .bind(leagues[0].id - 1)
+                    .execute(db)
+                    .await
+                    .map_err(|e| format!("could not update league: {}", e));
+
+                leagues = sqlx::query_as::<_, League>("SELECT * FROM leagues WHERE id = ?1")
+                    .bind(leagues[0].id - 1)
+                    .fetch(db)
+                    .try_collect()
+                    .await
+                    .map_err(|e| format!("could not get new league: {}", e))
+                    .unwrap();
+            }
+        }
 
         let _ = sqlx::query("UPDATE users SET points = ?1, updated_at = ?2 WHERE id = ?3")
             .bind(new_points)

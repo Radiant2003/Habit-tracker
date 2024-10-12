@@ -40,7 +40,7 @@ pub async fn setup_db(app: &App) -> Db {
         .set_ignore_missing(true)
         .run(&db)
         .await
-        .unwrap();
+        .expect("error while migrating");
 
     db
 }

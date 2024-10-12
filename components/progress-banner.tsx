@@ -6,14 +6,13 @@ import Image from "next/image";
 
 import { Progress } from "./ui/progress";
 
-import { LEAGUES } from "@/constants";
 import { League, User } from "@/types";
 import { useUserPoints } from "@/hooks/use-user-points";
 
 const ProgressBanner = () => {
     const userPoints = useUserPoints();
 
-    const [league, setLeague] = useState<League>({title: "zhest", lower_bound: 0, league_cost: 0});
+    const [league, setLeague] = useState<League>({id: 1, league_name: "zhest", lower_bound: 0, league_cost: 0});
     const [upperBound, SetUpperBound] = useState<number>(499);
 
     useEffect(() => {
@@ -23,19 +22,13 @@ const ProgressBanner = () => {
     }, []);
 
     useEffect(() => {
-        for (const key of Object.keys(LEAGUES)) {
-            if (userPoints.points >= LEAGUES[key].lower_bound) {
-                setLeague(LEAGUES[key]);
-                SetUpperBound(league.lower_bound + 499);
-            }
-            else {
-                break;
-            }
-        }
+        invoke("update_league", { points: userPoints.points }).then(leagues => {
+            setLeague((leagues as League[])[(leagues as League[]).length - 1]);
+            SetUpperBound(league.lower_bound + 499);
+        });
 
         const updateInterval = setInterval(() => {
-            const leagueEntryPoints: number = league.league_cost;
-            invoke("check_user_update", { leagueEntryPoints }).then((new_points) => {
+            invoke("check_user_update").then((new_points) => {
                 if ((new_points as number) !== userPoints.points) {
                     userPoints.setPoints(new_points as number);
                 }
@@ -45,11 +38,11 @@ const ProgressBanner = () => {
         return () => {
             clearInterval(updateInterval);
         }
-    }, [userPoints, league]);
+    }, [userPoints]);
 
     return ( 
         <div className="w-[90%] my-5 border-4 border-neutral-300 rounded-lg px-10 pt-10 max-w-[980px]">
-            <h1 className="text-xl font-semibold">{`${league.title.toUpperCase()} (daily cost: ${league.league_cost} points)`}</h1>
+            <h1 className="text-xl font-semibold">{`${league.league_name.toUpperCase()} (daily cost: ${league.league_cost} points)`}</h1>
             <div className="flex items-center justify-between">
                 <div className="w-[80%]">
                     <Progress value={(userPoints.points - league.lower_bound) / 4.99}/>
@@ -57,7 +50,7 @@ const ProgressBanner = () => {
                 </div>
                 <Image 
                     alt="League"
-                    src={`/${league.title}.png`}
+                    src={`/${league.league_name}.png`}
                     width={150}
                     height={150}
                     className="mb-10"

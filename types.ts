@@ -2,6 +2,7 @@ export type User = {
     id:number;
     points: number;
     updated_at: number;
+    league_id: number;
 };
 
 export type Habit = {
@@ -11,7 +12,8 @@ export type Habit = {
 };
 
 export type League = {
-    title: string;
+    id: number;
+    league_name: string;
     lower_bound: number;
     league_cost: number;
 };

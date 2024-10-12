@@ -6,3 +6,6 @@ pub use records::*;
 
 mod users;
 pub use users::*;
+
+mod leagues;
+pub use leagues::*;

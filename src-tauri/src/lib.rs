@@ -3,6 +3,7 @@
 
 use sqlx::{Pool, Sqlite};
 use tauri::{App, Manager};
+use tauri_plugin_updater::UpdaterExt;
 
 mod tauri_commands;
 use tauri_commands::*;
@@ -28,9 +29,17 @@ pub async fn run() -> Result<(), ()> {
             check_user_update,
             get_records,
             reset_records,
+            get_league,
+            update_league,
         ])
         .build(tauri::generate_context!())
         .expect("error while running tauri application");
+
+    let handle: tauri::AppHandle = app.handle().clone();
+
+    tauri::async_runtime::spawn(async move {
+        let _ = update(handle).await;
+    });
 
     let db: Pool<Sqlite> = setup_db(&app).await;
 
@@ -39,3 +48,21 @@ pub async fn run() -> Result<(), ()> {
 
     Ok(())
 }
+
+async fn update(app: tauri::AppHandle) -> tauri::Result<()> {
+    if let Some(update) = app.updater().unwrap().check().await.unwrap() {
+      let mut downloaded = 0;
+  
+      update.download_and_install(|chunk_length, content_length| {
+        downloaded += chunk_length;
+        println!("downloaded {downloaded} from {content_length:?}");
+      }, || {
+        println!("download finished");
+      }).await.unwrap();
+  
+      println!("update installed");
+      app.restart();
+    }
+  
+    Ok(())
+  }
