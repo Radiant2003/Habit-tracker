@@ -1,6 +1,6 @@
 [package]
 name = "app"
-version = "1.0.1"
+version = "1.1.0"
 description = "Offline habit tracker created with Tauri and Next.js"
 authors = ["you"]
 license = ""
